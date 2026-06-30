@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>04-ai-services</artifactId>
+    <name>04-AI Services 声明式高级 API</name>
+    <description>用一个 Java 接口 + AiServices 自动实现 LLM 调用（最常用的高级用法）</description>
+
+    <dependencies>
+        <!-- ★ langchain4j（高级模块）★
+             提供 AiServices、@SystemMessage/@UserMessage 注解、工具调用、RAG 装配等“高级 API”。
+             它依赖 langchain4j-core，但不含具体厂商实现，所以仍需搭配 langchain4j-open-ai。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+        <!-- OpenAI(兼容 DeepSeek) 集成：提供具体的 OpenAiChatModel 实现 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

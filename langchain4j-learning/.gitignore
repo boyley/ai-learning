@@ -1,0 +1,21 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS
+.DS_Store
+
+# logs
+*.log
+
+# 本地密钥（千万不要把真实 Key 提交到仓库）
+*.env
+.env

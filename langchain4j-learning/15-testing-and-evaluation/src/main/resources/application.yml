@@ -1,0 +1,9 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: 15-testing-and-evaluation
+  config:
+    import:
+      - "optional:file:../config/langchain4j-common.yml"
+      - "optional:file:./config/langchain4j-common.yml"

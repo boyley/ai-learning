@@ -1,0 +1,50 @@
+spring:
+  # 声明为非 Web 应用：本模块是命令行演示(CommandLineRunner 跑完即退出)。
+  # OpenAI starter 传递引入了 webflux，不声明会被误判为 reactive Web 应用而启动失败。
+  main:
+    web-application-type: none
+  application:
+    name: 05-multimodality
+
+  # ===========================================================================
+  #  ★★★ 本模块为什么【不】import 共享配置 config/spring-ai-common.yml？★★★
+  # ---------------------------------------------------------------------------
+  #  踩坑记录（重要！）：
+  #    - 共享配置 spring-ai-common.yml 把 chat 指向 DeepSeek（deepseek-chat，纯文本，
+  #      不支持图片/视觉）。本模块要"看图说话"，必须换成视觉模型。
+  #    - 一开始尝试"import 共享配置，然后在本文件里覆盖 base-url/model"——【失败】。
+  #      原因是 Spring Boot 的 spring.config.import 优先级规则：
+  #        ★ 被 import 进来的文件，优先级【高于】写 import 的这个文件 ★
+  #        （官方原文：Values from the imported file will take precedence over
+  #         the file that triggered the import.）
+  #      所以无论本文件怎么写 model: qwen-vl-plus，都会被 common.yml 的
+  #      deepseek-chat 反向覆盖，请求实际发去了 DeepSeek，报错：
+  #        HTTP 400 unknown variant `image_url`, expected `text`
+  #      （即 DeepSeek 文本模型拒绝图片输入）。
+  #    - 正确做法：本模块【不 import 共享配置】，自带一份完整的视觉模型配置，
+  #      这样没有任何文件能再覆盖它。
+  # ===========================================================================
+  ai:
+    openai:
+      # 阿里百炼【公共】OpenAI 兼容地址（可自由指定模型，含视觉模型 qwen-vl-*）。
+      # ★ 坑：Spring AI 会自动在 base-url 后拼接 /v1/chat/completions，
+      #   所以 base-url 这里【只写到 /compatible-mode，不要带 /v1】，
+      #   否则会变成 .../compatible-mode/v1/v1/chat/completions 双 v1 → HTTP 404。
+      #   最终真实请求地址 = base-url + /v1/chat/completions
+      #                    = https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions ✓
+      # （专属网关 llm-xxx.maas... 只服务你部署的那一个模型，多为文本模型，会拒绝图片，
+      #   所以多模态用这个公共地址。）
+      base-url: https://dashscope.aliyuncs.com/compatible-mode
+      # 从环境变量读取 Key，避免明文写入源码：export DASHSCOPE_API_KEY=sk-xxx
+      api-key: ${DASHSCOPE_API_KEY:请设置环境变量DASHSCOPE_API_KEY}
+      chat:
+        options:
+          # 通义千问视觉模型：qwen-vl-plus（便宜够用），要更强可换 qwen-vl-max
+          model: qwen-vl-plus
+
+# 日志配置：让控制台少打印 INFO 噪音，聚焦演示输出（原本由共享配置提供，这里自带一份）
+logging:
+  level:
+    root: WARN
+    com.example.springai: INFO
+    org.springframework.ai: INFO

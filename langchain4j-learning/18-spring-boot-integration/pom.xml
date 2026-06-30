@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>18-spring-boot-integration</artifactId>
+    <name>18-Spring Boot 集成（官方 starter + @AiService）</name>
+    <description>本模块与前面"仅外壳"不同：真正使用 LangChain4j 官方 Spring Boot starter 实现自动配置</description>
+
+    <dependencies>
+        <!-- ★ LangChain4j 官方 Spring Boot 核心 starter ★
+             提供 @AiService 注解的扫描与自动装配（AiServicesAutoConfig）：
+             被 @AiService 标注的接口会被自动注册成 Spring Bean，可直接 @Autowired 注入。
+             版本由父 pom 的 langchain4j-bom 统一管理（实际为 1.17.0-betaXX）。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- ★ LangChain4j 官方 OpenAI starter ★
+             读取 application.yml 里 langchain4j.open-ai.* 属性，自动创建 OpenAiChatModel 等 Bean。
+             它会传递依赖 langchain4j-open-ai，因此无需再单独声明。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

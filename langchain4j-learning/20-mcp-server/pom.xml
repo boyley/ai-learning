@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、LangChain4j BOM 等版本管理 -->
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>20-mcp-server</artifactId>
+    <name>20-MCP 服务端</name>
+    <description>用官方 MCP Java SDK 构建一个 stdio 传输的 MCP 服务端，对外暴露工具，与 16-mcp 客户端配对成闭环</description>
+
+    <!-- ★ 关键说明：MCP 服务端的依赖来源 ★
+         LangChain4j 的 langchain4j-mcp 模块只提供【MCP 客户端】（连接别人家的 Server）。
+         要用 Java 自己【写一个 MCP 服务端】，需引入【官方 MCP Java SDK】：
+           groupId  = io.modelcontextprotocol.sdk
+           artifactId = mcp（聚合包，会自动带上 mcp-core + mcp-json-jackson2）
+         这套 SDK 不在 langchain4j-bom 里，所以必须显式写 <version>。
+         本模块验证可用的版本是 0.18.2（编译已通过；如该版本拉不到可换其它稳定版）。 -->
+    <dependencies>
+        <dependency>
+            <groupId>io.modelcontextprotocol.sdk</groupId>
+            <artifactId>mcp</artifactId>
+            <version>0.18.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

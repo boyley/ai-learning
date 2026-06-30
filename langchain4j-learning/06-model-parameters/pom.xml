@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>06-model-parameters</artifactId>
+    <name>06-Model Parameters 模型参数</name>
+    <description>演示 temperature / maxTokens / topP 等参数如何影响模型输出</description>
+
+    <dependencies>
+        <!-- OpenAI(兼容 DeepSeek) 集成：OpenAiChatModel 的 builder 暴露了各类生成参数。
+             本模块只用底层 ChatModel，不需要 langchain4j 高级模块。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、LangChain4j BOM 等版本管理 -->
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>22-json-codec</artifactId>
+    <name>22-JSON编解码定制</name>
+    <description>演示 LangChain4j 底层 JSON 编解码能力：Json 工具类、ChatMessageJsonCodec 以及替换默认实现的 SPI 机制</description>
+
+    <dependencies>
+        <!-- OpenAI 集成：提供 OpenAiChatModel（对话用，指向 DeepSeek）。
+             同时它会【传递依赖】引入 langchain4j-core，
+             本模块用到的 JSON 编解码类全部在 core 里：
+               - dev.langchain4j.internal.Json（toJson/fromJson 工具类）
+               - dev.langchain4j.data.message.JacksonChatMessageJsonCodec（消息编解码器）
+               - dev.langchain4j.spi.json.JsonCodecFactory（替换默认实现的 SPI）
+             版本由父工程的 langchain4j-bom 统一管理，无需写 <version>。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

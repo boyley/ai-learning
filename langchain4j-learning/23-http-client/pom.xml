@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、LangChain4j BOM 等版本管理 -->
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>23-http-client</artifactId>
+    <name>23-底层HTTP客户端定制</name>
+    <description>演示如何显式指定一个自定义 HttpClientBuilder 给对话模型，从而控制超时/代理/连接池等底层 HTTP 行为</description>
+
+    <dependencies>
+        <!-- OpenAI 集成：提供 OpenAiChatModel（对话用，指向 DeepSeek），
+             以及 .httpClientBuilder(HttpClientBuilder) 这个关键入口。
+             版本由父工程的 langchain4j-bom 统一管理，无需写 <version>。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+
+        <!-- ★ HTTP 客户端的 JDK 变体 ★
+             提供 dev.langchain4j.http.client.jdk.JdkHttpClientBuilder，
+             它把 Java 17 自带的 java.net.http.HttpClient 适配成 LangChain4j 的
+             HttpClientBuilder 接口。显式引入它，才能在代码里 new 出这个构建器并定制。
+             （它通常也作为 langchain4j-open-ai 的默认 HTTP 实现被传递引入，
+              这里显式声明是为了语义清晰、也防止传递依赖变动。）
+             版本由 BOM 统一管理，无需写 <version>。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-http-client-jdk</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

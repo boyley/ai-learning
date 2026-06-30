@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、LangChain4j BOM 等版本管理 -->
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>21-skills</artifactId>
+    <name>21-Skills 技能</name>
+    <description>用 langchain4j-skills 给 AiServices 装配「技能」，演示技能的渐进式披露(按需激活)能力</description>
+
+    <dependencies>
+        <!-- langchain4j（高级模块）：提供 AiServices、ToolProvider 等高级 API -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+        <!-- ★ langchain4j-skills（技能特性）★
+             提供 Skill / Skills / DefaultSkill 等 API：把「一整套做某事的说明书(+可选工具/资源)」
+             打包成一个技能，交给模型按需激活。版本由父 pom 的 langchain4j-bom 统一管理
+             （实际为 1.17.0-beta27，无需写 version）。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-skills</artifactId>
+        </dependency>
+        <!-- OpenAI(兼容 DeepSeek) 集成：提供 OpenAiChatModel -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

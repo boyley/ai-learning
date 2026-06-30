@@ -1,0 +1,70 @@
+# =============================================================================
+#  ★★★ 全局统一配置文件（整个项目只需要改这一个地方）★★★
+# =============================================================================
+#  说明：
+#  - 所有学习模块的 application.yml 都会通过 spring.config.import 导入本文件。
+#  - 你只需要在这里填好 API Key，所有模块都能用，不用到处复制配置。
+#  - 这些属性不是 LangChain4j 自动识别的“魔法属性”，而是【我们自己定义的属性名】；
+#    各模块通过 @Value("${langchain4j.openai.chat.api-key}") 把它们读出来，
+#    再用 LangChain4j 的构建器（如 OpenAiChatModel.builder()）手动构建模型。
+#    这样做的好处：既统一管理了 Key，又能让你清楚看到 LangChain4j 原生 API 怎么用。
+#
+#  本项目模型策略（DeepSeek 为主 + OpenAI 兼容）：
+#  - LangChain4j 的 OpenAI 集成（langchain4j-open-ai）走标准 OpenAI 接口协议。
+#  - DeepSeek 的接口与 OpenAI 完全兼容，所以“对话(chat)”指向 DeepSeek（便宜、国内可直连）。
+#  - “向量(embedding)/图片(image)”能力 DeepSeek 不支持，指向真正的 OpenAI。
+#  - 注意 base-url 需要带上 /v1 后缀（LangChain4j 不会自动补）。
+#
+#  ★ 如何填 Key（二选一）：
+#    方式A（推荐）：设置环境变量，什么都不用改这个文件：
+#        export DEEPSEEK_API_KEY=sk-你的deepseek密钥
+#        export OPENAI_API_KEY=sk-你的openai密钥
+#    方式B：直接把下面 ${DEEPSEEK_API_KEY:...} 里冒号后面的默认值替换成你的真实 Key。
+#
+#  ★ DeepSeek 申请地址：https://platform.deepseek.com/ （注册送额度）
+#  ★ 只学对话相关模块（01~08、13、14、15、16、17）的话，只要 DeepSeek 的 Key 就够了。
+#  ★ 想完全不花钱试跑：LangChain4j 提供了演示代理 base-url=http://langchain4j.dev/demo/openai/v1
+#    + api-key=demo + model=gpt-4o-mini（仅供学习，限流，勿用于生产）。
+# =============================================================================
+
+langchain4j:
+  openai:
+    # ---- chat（对话）能力：指向 DeepSeek（OpenAI 兼容） ----
+    chat:
+      # base-url 必须带 /v1。DeepSeek 的 OpenAI 兼容地址：
+      base-url: https://api.deepseek.com/v1
+      # 对话用 DeepSeek 的 Key
+      api-key: ${DEEPSEEK_API_KEY:请在这里填入你的-DeepSeek-Key或设置环境变量}
+      # 使用的模型名。DeepSeek 可选：
+      #   deepseek-chat     → 通用对话模型（推荐入门，速度快）
+      #   deepseek-reasoner → 带推理链的深度思考模型（更慢更贵）
+      model: deepseek-chat
+      # temperature 采样温度（0~2）：越低回答越稳定/确定，越高越有创造性/随机。
+      temperature: 0.7
+
+    # ---- embedding（文本向量化）能力：指向真正的 OpenAI ----
+    embedding:
+      base-url: https://api.openai.com/v1
+      api-key: ${OPENAI_API_KEY:请在这里填入你的-OpenAI-Key或设置环境变量}
+      # OpenAI 的向量模型，输出 1536 维向量
+      model: text-embedding-3-small
+
+    # ---- image（文生图）能力：指向真正的 OpenAI ----
+    image:
+      base-url: https://api.openai.com/v1
+      api-key: ${OPENAI_API_KEY:请在这里填入你的-OpenAI-Key或设置环境变量}
+      model: dall-e-3
+
+    # ---- moderation（内容审核）能力：指向真正的 OpenAI（DeepSeek 不支持审核）----
+    moderation:
+      base-url: https://api.openai.com/v1
+      api-key: ${OPENAI_API_KEY:请在这里填入你的-OpenAI-Key或设置环境变量}
+      # OpenAI 的审核模型。omni-moderation-latest 是较新的审核模型。
+      model: omni-moderation-latest
+
+# 日志配置：让控制台少打印一些 INFO 噪音，聚焦在我们自己的演示输出上
+logging:
+  level:
+    root: WARN
+    com.example.lc4j: INFO              # 我们自己代码的日志保留 INFO
+    dev.langchain4j: INFO               # LangChain4j 的日志保留 INFO，方便观察

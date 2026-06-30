@@ -1,0 +1,9 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: 09-embeddings-and-stores
+  config:
+    import:
+      - "optional:file:../config/langchain4j-common.yml"
+      - "optional:file:./config/langchain4j-common.yml"

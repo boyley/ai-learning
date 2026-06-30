@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================================================= -->
+    <!-- 这是【父工程 / 聚合工程】的 POM。                                              -->
+    <!-- 作用：                                                                         -->
+    <!--   1. 作为所有子模块的“父亲”，统一管理 Java 版本、依赖版本（一处定义，处处生效）-->
+    <!--   2. 作为“聚合工程”，用 <modules> 把全部学习模块聚合在一起，                  -->
+    <!--      在根目录执行 mvn 命令时会一次性处理所有模块。                            -->
+    <!--   3. packaging 必须是 pom（它本身不产出 jar，只负责管理和聚合）。            -->
+    <!--                                                                               -->
+    <!-- 本项目用 Spring Boot 作为“运行外壳”（提供启动类 + CommandLineRunner + 统一    -->
+    <!-- 读取共享配置文件的能力），而真正的 AI 能力全部来自 LangChain4j。              -->
+    <!-- 这样既保持了和 spring-ai-learning 一致的学习风格，又教的是纯正的 LangChain4j API。-->
+    <!-- ============================================================================= -->
+
+    <!-- 继承 Spring Boot 官方父工程：它已经帮我们管理好了 Spring、日志、测试等几百个依赖的版本，
+         我们只需要写依赖的 groupId/artifactId，不用写 <version>，避免版本冲突。 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.4</version>
+        <relativePath/> <!-- 留空表示从 Maven 仓库下载父工程，而不是从本地路径找 -->
+    </parent>
+
+    <!-- 本项目自己的坐标（GAV：GroupId + ArtifactId + Version 唯一标识一个 Maven 项目） -->
+    <groupId>com.example.langchain4j</groupId>
+    <artifactId>langchain4j-learning</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging> <!-- pom 类型 = 这是个父/聚合工程，不打成可运行 jar -->
+
+    <name>LangChain4j 零基础学习项目</name>
+    <description>按官方文档知识点循序渐进的 LangChain4j 学习项目，每个知识点是一个独立可运行的模块</description>
+
+    <!-- 全局属性：在这里集中定义版本号等，下面用 ${...} 引用，改一处即可全局生效 -->
+    <properties>
+        <!-- 源码与编译目标的 Java 版本。LangChain4j 1.x 要求 JDK 17+ -->
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- LangChain4j 的版本。这是当前最新稳定 GA 版本。 -->
+        <langchain4j.version>1.17.0</langchain4j.version>
+    </properties>
+
+    <!-- ============================================================================= -->
+    <!-- 聚合的子模块列表。                                                             -->
+    <!-- 这里的名字 = 子模块所在的【文件夹名】。带 01、02… 前缀是为了标明学习顺序。     -->
+    <!-- 顺序对应 LangChain4j 官方 Tutorials 菜单，并按“从易到难”重新编排。            -->
+    <!-- ============================================================================= -->
+    <modules>
+        <module>01-get-started</module>            <!-- 概念 + 第一个 LangChain4j 调用 -->
+        <module>02-chat-and-language-models</module><!-- 底层 ChatModel API：消息类型/ChatRequest -->
+        <module>03-response-streaming</module>     <!-- 流式输出 StreamingChatModel -->
+        <module>04-ai-services</module>            <!-- 高级声明式 API：AiServices 接口 -->
+        <module>05-chat-memory</module>            <!-- 对话记忆：让 AI 记住上下文 -->
+        <module>06-model-parameters</module>       <!-- 模型参数：temperature/maxTokens 等 -->
+        <module>07-structured-outputs</module>     <!-- 结构化输出：把回答转成 Java 对象 -->
+        <module>08-tools</module>                  <!-- 工具调用 / 函数调用 @Tool -->
+        <module>09-embeddings-and-stores</module>  <!-- 文本向量化 + 向量存储 -->
+        <module>10-rag</module>                    <!-- 检索增强生成 RAG -->
+        <module>11-classification</module>         <!-- 文本分类 -->
+        <module>12-image-models</module>           <!-- 图像模型：文生图 / 图像理解 -->
+        <module>13-guardrails</module>             <!-- 护栏：输入/输出校验 -->
+        <module>14-observability-logging</module>  <!-- 可观测性 + 日志 -->
+        <module>15-testing-and-evaluation</module> <!-- 测试与评估 -->
+        <module>16-mcp</module>                    <!-- 模型上下文协议 MCP 客户端 -->
+        <module>17-agents</module>                 <!-- 构建智能体 -->
+        <module>18-spring-boot-integration</module><!-- Spring Boot 集成（starter + @AiService） -->
+        <module>19-moderation</module>             <!-- 内容审核：检测文本是否违规（需 OpenAI） -->
+        <module>20-mcp-server</module>             <!-- MCP 服务端（与 16 客户端配对成闭环） -->
+        <module>21-skills</module>                 <!-- Skills 技能特性 -->
+        <module>22-json-codec</module>             <!-- JSON 编解码定制 -->
+        <module>23-http-client</module>            <!-- 底层 HTTP 客户端定制 -->
+    </modules>
+
+    <!-- ============================================================================= -->
+    <!-- 依赖版本管理（只管理版本，不真正引入依赖）。                                   -->
+    <!-- 导入 LangChain4j 的 BOM（Bill Of Materials 材料清单），它声明了所有 LangChain4j -->
+    <!-- 相关依赖的统一版本。子模块引用 langchain4j 依赖时就不用再写 <version> 了。     -->
+    <!-- ============================================================================= -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-bom</artifactId>
+                <version>${langchain4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope> <!-- scope=import 是导入 BOM 的固定写法 -->
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 所有子模块都会用到的公共依赖，放在这里，子模块自动继承，不必各自声明 -->
+    <dependencies>
+        <!-- Spring Boot 核心 starter（不含 Web）：提供启动类、CommandLineRunner、
+             以及通过 spring.config.import 读取共享配置文件 + @Value 注入的能力。
+             我们只把它当“运行外壳”，AI 能力全部来自 LangChain4j。 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Lombok：用注解自动生成 getter/setter/构造器等，减少样板代码（可选，方便初学者） -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 测试起步依赖：JUnit5 等 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- pluginManagement：统一管理插件版本，子模块用到时无需再写版本 -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <!-- 打包时排除 lombok（它只在编译期需要） -->
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

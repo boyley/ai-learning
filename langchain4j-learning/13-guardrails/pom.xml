@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>13-guardrails</artifactId>
+    <name>13-护栏（Guardrails）</name>
+    <description>给 AiService 加输入/输出护栏：拦截敏感词、校验输出格式与长度</description>
+
+    <dependencies>
+        <!-- ★ langchain4j（高级模块）★
+             护栏的接口在 langchain4j-core（dev.langchain4j.guardrail），
+             而把护栏挂到 AiService 方法上的注解在 langchain4j（dev.langchain4j.service.guardrail）。
+             引入 langchain4j 会自动带上 langchain4j-core，两者都有了。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+        <!-- OpenAI(兼容 DeepSeek) 集成：提供具体的 OpenAiChatModel 实现 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

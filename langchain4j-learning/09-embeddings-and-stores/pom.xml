@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>09-embeddings-and-stores</artifactId>
+    <name>09-Embeddings &amp; Stores 向量化与向量存储</name>
+    <description>OpenAiEmbeddingModel 文本向量化 + InMemoryEmbeddingStore 存储与语义检索</description>
+
+    <dependencies>
+        <!-- ★ langchain4j（高级模块）★
+             提供内存向量库 InMemoryEmbeddingStore（包 dev.langchain4j.store.embedding.inmemory）。
+             向量化的基础抽象（EmbeddingModel / Embedding / TextSegment / EmbeddingSearchRequest）
+             则在它依赖的 langchain4j-core 中。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+        <!-- OpenAI 集成：提供具体的 OpenAiEmbeddingModel（向量模型）实现。
+             注意：向量化能力 DeepSeek 不支持，本模块的 embedding.* 配置指向真正的 OpenAI。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

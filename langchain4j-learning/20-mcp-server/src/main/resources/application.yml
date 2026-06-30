@@ -1,0 +1,20 @@
+spring:
+  main:
+    web-application-type: none
+    # ★ 关键：banner 关闭 + 控制台日志不要污染 stdout ★
+    # stdio 传输靠【标准输出】收发 JSON-RPC 消息，任何打到 stdout 的杂讯都会破坏协议。
+    # 所以本模块把 Spring 的 banner 关掉，演示信息一律走 System.err（见 Runner）。
+    banner-mode: "off"
+  application:
+    name: 20-mcp-server
+  config:
+    import:
+      - "optional:file:../config/langchain4j-common.yml"
+      - "optional:file:./config/langchain4j-common.yml"
+
+# ★ 关键：把控制台日志 pattern 置空，彻底关闭打到 stdout 的框架日志。
+#   原因：stdio MCP 用 stdout 收发 JSON-RPC，必须保持纯净；任何日志混进去都会破坏协议。
+#   我们演示用的人类可读信息一律走 System.err（见 Runner），不影响 stdout 通道。
+logging:
+  pattern:
+    console: ""

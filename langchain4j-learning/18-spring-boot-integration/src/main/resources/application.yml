@@ -1,0 +1,33 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: 18-spring-boot-integration
+
+  # 仍然 import 共享配置（沿用整个项目的统一约定：日志级别等）。
+  # 注意：共享配置里的属性前缀是 langchain4j.openai.chat.*（我们自定义、靠 @Value 读取）；
+  #       本模块下面用的是 langchain4j.open-ai.chat-model.*（LangChain4j 官方 starter 自动识别）。
+  #       两者前缀不同（openai vs open-ai），互不冲突。
+  config:
+    import:
+      - "optional:file:../config/langchain4j-common.yml"
+      - "optional:file:./config/langchain4j-common.yml"
+
+# ============================================================================
+# ★★★ 本模块的重点：LangChain4j 官方 starter 自动识别的"魔法属性" ★★★
+# ============================================================================
+# 前缀固定为 langchain4j.open-ai（带连字符），由 dev.langchain4j.openai.spring.Properties
+# 上的 @ConfigurationProperties(prefix = "langchain4j.open-ai") 决定。
+# chat-model 这一段会被自动绑定，启动时自动创建一个 OpenAiChatModel Bean——
+# 你不再需要像前面模块那样手写 OpenAiChatModel.builder()。
+langchain4j:
+  open-ai:
+    chat-model:
+      # 走 OpenAI 兼容协议连接 DeepSeek，base-url 需带 /v1
+      base-url: https://api.deepseek.com/v1
+      api-key: ${DEEPSEEK_API_KEY:请设置环境变量-DEEPSEEK_API_KEY}
+      model-name: deepseek-chat
+      temperature: 0.7
+      # 打开请求/响应日志，方便观察 starter 自动构建的模型在工作
+      log-requests: true
+      log-responses: true

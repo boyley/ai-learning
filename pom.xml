@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================================================= -->
+    <!-- 这是【最外层的聚合工程】POM（monorepo 的根）。                                  -->
+    <!--                                                                               -->
+    <!-- 它的唯一职责：用 <modules> 把两个独立的学习工程聚合在一起，                    -->
+    <!-- 让你在本目录执行一条 mvn 命令就能一次性构建/编译两个工程。                    -->
+    <!--                                                                               -->
+    <!-- ★ 重要：这只是“聚合(aggregation)”，不是“继承(inheritance)”。                   -->
+    <!--   两个子工程各自仍然继承 spring-boot-starter-parent（它们的 pom 一个字没改）， -->
+    <!--   本 pom 不做它们的父工程，只负责“一条命令构建全部”。                         -->
+    <!--   因此子工程内部的相对路径（如各模块 import 的 ../config/xxx.yml）原样有效。   -->
+    <!--                                                                               -->
+    <!-- packaging 必须是 pom（聚合工程不产出 jar）。                                   -->
+    <!-- ============================================================================= -->
+
+    <groupId>com.example</groupId>
+    <artifactId>ai-learning</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>Java AI 学习合集（Spring AI + LangChain4j）</name>
+    <description>把两个 Java AI 框架的零基础学习项目聚合在一个仓库：spring-ai-learning 与 langchain4j-learning</description>
+
+    <!-- 聚合的两个子工程（指向各自的文件夹名）。                                       -->
+    <!-- 每个子工程本身又是一个聚合工程（内部再聚合 01、02… 各知识点模块）——            -->
+    <!-- 这是 Maven 支持的“多层聚合”，在本根目录 mvn 时会递归构建到每个知识点模块。      -->
+    <modules>
+        <module>spring-ai-learning</module>
+        <module>langchain4j-learning</module>
+    </modules>
+
+</project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>14-observability-logging</artifactId>
+    <name>14-可观测性与日志</name>
+    <description>开启请求/响应日志，并用 ChatModelListener 监听每次调用的耗时与 Token</description>
+
+    <dependencies>
+        <!-- OpenAI(兼容 DeepSeek) 集成：提供 OpenAiChatModel；
+             日志开关 logRequests/logResponses 与 listeners 都在它的 builder 上。
+             ChatModelListener 等监听接口位于 langchain4j-core（被 open-ai 传递依赖引入）。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

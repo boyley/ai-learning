@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.langchain4j</groupId>
+        <artifactId>langchain4j-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>10-rag</artifactId>
+    <name>10-RAG 检索增强生成</name>
+    <description>手动 RAG：向量化知识 + InMemoryEmbeddingStore + EmbeddingStoreContentRetriever + AiServices</description>
+
+    <dependencies>
+        <!-- ★ langchain4j（高级模块）★
+             提供 AiServices、内存向量库 InMemoryEmbeddingStore、以及 RAG 装配的
+             EmbeddingStoreContentRetriever（包 dev.langchain4j.rag.content.retriever，
+             该类实际定义在它依赖的 langchain4j-core 中）。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+        <!-- OpenAI(兼容 DeepSeek) 集成：对话用 OpenAiChatModel(DeepSeek)，
+             向量化用 OpenAiEmbeddingModel(真正的 OpenAI)。 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

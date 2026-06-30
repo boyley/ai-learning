@@ -40,7 +40,7 @@ flowchart TD
     I["@AiService interface Assistant"] -->|langchain4j-spring-boot-starter 扫描| B["自动实现 + 注册为 Bean"]
     M -->|AUTOMATIC 自动装配| B
     B -->|构造器注入| R["SpringBootRunner"]
-    R -->|assistant.chat(...)| O["AI 回答（零样板模型代码）"]
+    R -->|调用 assistant.chat 方法| O["AI 回答（零样板模型代码）"]
 ```
 
 ## 五、关键代码

@@ -93,6 +93,9 @@ cd langchain4j-learning/01-get-started      && mvn spring-boot:run
 | 分类 / 护栏 / Skills / JSON / HTTP | — | 11 / 13 / 21 / 22 / 23 |
 | Spring Boot 集成 | （全程即是） | 18 |
 
+> 📊 **两个框架逐知识点的「使用步骤 + 核心 API + 差异」详细对比**，见
+> [`Spring-AI-vs-LangChain4j-知识模块对比.md`](Spring-AI-vs-LangChain4j-知识模块对比.md)。
+>
 > 详细学习路线、每个模块的讲解与流程图，见各子项目根目录的 `README.md`。
 
 ---

@@ -14,3 +14,4 @@ spring:
     import:
       - "optional:file:../config/spring-ai-common.yml"   # 在模块目录内运行时（推荐）
       - "optional:file:./config/spring-ai-common.yml"    # 在项目根目录运行时
+      - "optional:file:spring-ai-learning/config/spring-ai-common.yml"   # 在仓库(ai-learning)根目录 / IDE 默认工作目录运行时

@@ -9,6 +9,7 @@ spring:
     import:
       - "optional:file:../config/spring-ai-common.yml"
       - "optional:file:./config/spring-ai-common.yml"
+      - "optional:file:spring-ai-learning/config/spring-ai-common.yml"   # 在仓库(ai-learning)根目录 / IDE 默认工作目录运行时
 
 # ============================================================================
 #  ★ Actuator 可观测性配置（management.*）★

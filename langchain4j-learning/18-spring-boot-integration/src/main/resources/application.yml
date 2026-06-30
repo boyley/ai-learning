@@ -12,6 +12,7 @@ spring:
     import:
       - "optional:file:../config/langchain4j-common.yml"
       - "optional:file:./config/langchain4j-common.yml"
+      - "optional:file:langchain4j-learning/config/langchain4j-common.yml"   # 在仓库(ai-learning)根目录 / IDE 默认工作目录运行时
 
 # ============================================================================
 # ★★★ 本模块的重点：LangChain4j 官方 starter 自动识别的"魔法属性" ★★★

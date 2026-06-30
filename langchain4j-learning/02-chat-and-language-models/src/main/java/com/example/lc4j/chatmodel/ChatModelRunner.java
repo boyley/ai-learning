@@ -60,8 +60,10 @@ public class ChatModelRunner implements CommandLineRunner {
     /** 演示1：最简调用 chat(String)，回顾模块01。 */
     private void demo1_simpleString(ChatModel model) {
         System.out.println("===== 演示1：最简调用 model.chat(String) =====");
-        String answer = model.chat("用一句话解释什么是 JVM？");
-        System.out.println("AI：" + answer + "\n");
+        String question = "用一句话解释什么是 JVM？";          // 先把问题存成变量，便于打印
+        System.out.println("我问：" + question);              // ★ 打印问题，让你看清问的是什么
+        String answer = model.chat(question);
+        System.out.println("AI ：" + answer + "\n");
     }
 
     /**
@@ -75,6 +77,9 @@ public class ChatModelRunner implements CommandLineRunner {
         SystemMessage system = SystemMessage.from("你是一位耐心的 Java 老师，回答简洁、面向初学者。");
         // UserMessage：用户的问题。
         UserMessage user = UserMessage.from("什么是变量？请一句话说明。");
+        // ★ 打印这次对话的两条输入消息，让你看清“问的是什么、设定了什么人设”
+        System.out.println("我设定(System)：" + system.text());
+        System.out.println("我问(User)    ：" + user.singleText());
 
         // ChatRequest：把多条消息打包成一次请求（消息顺序即对话顺序）。
         ChatRequest request = ChatRequest.builder()

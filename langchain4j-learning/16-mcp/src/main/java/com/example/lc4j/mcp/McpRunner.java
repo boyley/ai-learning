@@ -96,8 +96,10 @@ public class McpRunner implements CommandLineRunner {
 
             // 5) 像普通方法一样提问；模型会自动决定是否调用远程 MCP 工具。
             System.out.println("===== 向带有远程 MCP 工具的助手提问 =====");
-            String answer = assistant.chat("请使用你可用的工具完成这个任务，并告诉我结果。");
-            System.out.println("AI：" + answer);
+            String question = "请使用你可用的工具完成这个任务，并告诉我结果。";
+            System.out.println("我问：" + question);     // ★ 先打印问题
+            String answer = assistant.chat(question);
+            System.out.println("AI ：" + answer);
 
             // 6) 用完关闭客户端，释放连接资源。
             mcpClient.close();

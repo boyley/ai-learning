@@ -97,9 +97,10 @@ public class SkillsRunner implements CommandLineRunner {
         // 4) 提问：给一段零散的工作记录，让模型整理成规范周报。
         try {
             System.out.println("\n===== 向带有「周报技能」的助手提问 =====");
-            String answer = assistant.chat(
-                    "帮我写本周周报：这周完成了用户登录模块、补齐了单元测试；" +
-                    "遇到的问题是测试环境数据库不稳定。");
+            String question = "帮我写本周周报：这周完成了用户登录模块、补齐了单元测试；" +
+                    "遇到的问题是测试环境数据库不稳定。";
+            System.out.println("我问：" + question);     // ★ 先打印问题
+            String answer = assistant.chat(question);
             System.out.println("AI（已按周报规范输出）：\n" + answer);
         } catch (Exception e) {
             // 最典型的失败原因：未配置有效 DeepSeek Key（鉴权失败）。

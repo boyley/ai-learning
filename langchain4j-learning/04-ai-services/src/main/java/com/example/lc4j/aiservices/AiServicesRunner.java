@@ -56,11 +56,15 @@ public class AiServicesRunner implements CommandLineRunner {
 
         // 3) 像调用普通方法一样使用它——底层自动完成与大模型的交互。
         System.out.println("===== 演示1：无注解方法 chat(String) =====");
-        System.out.println("AI：" + assistant.chat("用一句话解释什么是接口（interface）？") + "\n");
+        String q1 = "用一句话解释什么是接口（interface）？";
+        System.out.println("我问：" + q1);                     // ★ 先打印问题
+        System.out.println("AI ：" + assistant.chat(q1) + "\n");
 
         System.out.println("===== 演示2：@SystemMessage + @UserMessage + @V 变量 =====");
-        System.out.println("【主题：春天】\n" + assistant.writePoem("春天") + "\n");
-        System.out.println("【主题：代码】\n" + assistant.writePoem("代码"));
+        System.out.println("我让 AI 以「春天」为主题写一首四行短诗：");   // ★ 说明这次的输入
+        System.out.println(assistant.writePoem("春天") + "\n");
+        System.out.println("我让 AI 以「代码」为主题写一首四行短诗：");
+        System.out.println(assistant.writePoem("代码"));
 
         System.out.println("\n========== 模块04 演示结束 ==========\n");
     }

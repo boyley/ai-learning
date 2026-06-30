@@ -75,6 +75,7 @@ public class ModelParametersRunner implements CommandLineRunner {
                 .temperature(1.5)   // ★ 关键参数：温度调高，追求创意/发散
                 .build();
 
+        System.out.println("我问（同一个问题，对比两种温度）：" + QUESTION);  // ★ 先打印问题
         System.out.println("【低温 0.0】" + coldModel.chat(QUESTION));
         System.out.println("【高温 1.5】" + hotModel.chat(QUESTION));
         System.out.println("（提示：高温通常更花哨、更多样；低温更朴实、更稳定）\n");
@@ -92,7 +93,9 @@ public class ModelParametersRunner implements CommandLineRunner {
                 .maxTokens(20)      // ★ 关键参数：限制输出 Token 上限，控制长度与成本
                 .build();
 
-        System.out.println("【maxTokens=20】" + shortModel.chat("请详细介绍一下 Java 的历史。"));
+        String q = "请详细介绍一下 Java 的历史。";
+        System.out.println("我问：" + q);                       // ★ 先打印问题
+        System.out.println("【maxTokens=20】" + shortModel.chat(q));
         System.out.println("（提示：回答会在约 20 个 Token 处被截断，用于控制长度与花费）\n");
     }
 
@@ -116,6 +119,7 @@ public class ModelParametersRunner implements CommandLineRunner {
                 .maxOutputTokens(60)     // ★ 本次最多输出 60 Token
                 .build();
 
+        System.out.println("我问：" + QUESTION);   // ★ 先打印问题
         // chat(ChatRequest) 返回完整 ChatResponse，可顺带查看 Token 用量。
         ChatResponse response = model.chat(request);
         System.out.println("【单次覆盖 temp=1.2, topP=0.9, maxOut=60】" + response.aiMessage().text());

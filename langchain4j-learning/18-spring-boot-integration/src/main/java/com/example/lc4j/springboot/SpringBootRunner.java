@@ -46,8 +46,10 @@ public class SpringBootRunner implements CommandLineRunner {
 
         // 像调用普通 Bean 的方法一样使用它——背后由 starter 自动装配的模型完成对话。
         System.out.println("===== 直接使用自动注入的 Assistant Bean =====");
-        String answer = assistant.chat("用一句话介绍 Spring Boot 的'自动配置'是什么。");
-        System.out.println("AI：" + answer);
+        String question = "用一句话介绍 Spring Boot 的'自动配置'是什么。";
+        System.out.println("我问：" + question);     // ★ 先打印问题
+        String answer = assistant.chat(question);
+        System.out.println("AI ：" + answer);
 
         System.out.println("\n========== 模块18 演示结束 ==========\n");
     }

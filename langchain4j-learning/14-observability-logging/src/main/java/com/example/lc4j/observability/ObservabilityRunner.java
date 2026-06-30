@@ -72,8 +72,10 @@ public class ObservabilityRunner implements CommandLineRunner {
                 .build();
 
         // 真正联网调用后，控制台/日志里会出现框架自动记录的请求与响应内容
-        String answer = model.chat("用一句话解释什么是“可观测性”？");
-        System.out.println("AI：" + answer + "\n");
+        String question = "用一句话解释什么是“可观测性”？";
+        System.out.println("我问：" + question);     // ★ 先打印问题
+        String answer = model.chat(question);
+        System.out.println("AI ：" + answer + "\n");
     }
 
     /**
@@ -96,7 +98,9 @@ public class ObservabilityRunner implements CommandLineRunner {
                 .build();
 
         // 3) 普通调用即可——调用前后监听器的 onRequest/onResponse 会被自动触发
-        String answer = model.chat("请用两句话介绍一下 LangChain4j。");
-        System.out.println("AI：" + answer);
+        String question = "请用两句话介绍一下 LangChain4j。";
+        System.out.println("我问：" + question);     // ★ 先打印问题
+        String answer = model.chat(question);
+        System.out.println("AI ：" + answer);
     }
 }

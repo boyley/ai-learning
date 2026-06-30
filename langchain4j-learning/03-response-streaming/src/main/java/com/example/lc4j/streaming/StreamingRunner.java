@@ -56,11 +56,13 @@ public class StreamingRunner implements CommandLineRunner {
         // 等到 onCompleteResponse 或 onError 调用 countDown() 后，await() 才会放行。
         CountDownLatch latch = new CountDownLatch(1);
 
-        System.out.print("AI：");
+        String question = "请分三点说明学习编程的好处。";   // 先存成变量，便于打印
+        System.out.println("我问：" + question);            // ★ 先打印问题，让你看清问的是什么
+        System.out.print("AI ：");
 
         // ★★★ 核心：chat(问题, 回调处理器) ★★★
         // 模型每生成一小段就回调一次，我们边收边打印，形成打字机效果。
-        model.chat("请分三点说明学习编程的好处。", new StreamingChatResponseHandler() {
+        model.chat(question, new StreamingChatResponseHandler() {
             /** 收到一小段文本：立刻打印（不换行，拼成完整回答）。 */
             @Override
             public void onPartialResponse(String partialResponse) {

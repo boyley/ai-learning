@@ -1,13 +1,14 @@
 # Java AI 学习合集 🚀
 
-> 一个仓库，两个**面向零基础**的 Java AI 框架学习项目。同一批知识点，用两种主流框架分别实现，方便对照学习。
+> 一个仓库，三个**面向零基础**的 Java AI 框架学习项目。同一批知识点，用三种主流框架分别实现，方便对照学习。
 
 | 子项目 | 框架 | 模块数 | 说明 |
 |---|---|:---:|---|
 | [`spring-ai-learning`](spring-ai-learning) | **Spring AI** 1.1.7 | 20 | Spring 官方 AI 框架，Spring 风格的自动配置 + ChatClient |
 | [`langchain4j-learning`](langchain4j-learning) | **LangChain4j** 1.17.0 | 23 | 对标 Python LangChain 的 Java 库，原生 API |
+| [`spring-ai-alibaba-learning`](spring-ai-alibaba-learning) | **Spring AI Alibaba** 1.1.2.3 | 24 | 阿里开源智能体框架：DashScope(通义千问) + Graph 多智能体编排 |
 
-两个项目都基于 **Spring Boot 3.5.4 + Java 17**，每个知识点一个独立可运行的 Maven 模块，全程详细中文注释 + 流程图 + 模块独立 README。
+三个项目都基于 **Spring Boot 3.5.4 + Java 17**，每个知识点一个独立可运行的 Maven 模块，全程详细中文注释 + 流程图 + 模块独立 README。
 
 ---
 

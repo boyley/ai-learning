@@ -32,6 +32,7 @@
     <modules>
         <module>spring-ai-learning</module>
         <module>langchain4j-learning</module>
+        <module>spring-ai-alibaba-learning</module>
     </modules>
 
 </project>

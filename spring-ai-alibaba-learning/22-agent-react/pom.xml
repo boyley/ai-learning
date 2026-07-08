@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、Spring AI Alibaba BOM 等所有版本管理 -->
+    <parent>
+        <groupId>com.example.springaialibaba</groupId>
+        <artifactId>spring-ai-alibaba-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 本模块的标识 -->
+    <artifactId>22-agent-react</artifactId>
+    <name>22-ReAct智能体</name>
+    <description>Spring AI Alibaba ReAct 智能体：AI 自己决定“先推理→调工具→再回答”的行动循环</description>
+
+    <dependencies>
+        <!-- ★ DashScope Starter：ChatClient + 工具的自动多轮调用就靠它 -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+        </dependency>
+
+        <!-- ★ Graph 核心：其中的 com.alibaba.cloud.ai.graph.agent.ReactAgent 是对 ReAct 模式的
+             高级封装（README 里给出用法）。本模块示例代码用更稳的 ChatClient+@Tool 演示同一模式。 -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-graph-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

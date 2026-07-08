@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、Spring AI / Spring AI Alibaba BOM 等所有版本管理 -->
+    <parent>
+        <groupId>com.example.springaialibaba</groupId>
+        <artifactId>spring-ai-alibaba-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 本模块的标识 -->
+    <artifactId>09-embedding</artifactId>
+    <name>09-文本向量化 Embedding</name>
+    <description>把文字变成一串数字(向量)，为向量检索/RAG 打基础（text-embedding-v3，1024 维）</description>
+
+    <dependencies>
+        <!-- ★ DashScope Starter：本模块用它自动配置好的 EmbeddingModel（底层是通义 text-embedding-v3）。
+             引入它，就等于把“文本向量化”能力接入了 Spring。版本由父工程统一管理，无需写 <version>。 -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot 打包/运行插件：让 mvn spring-boot:run 可用 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

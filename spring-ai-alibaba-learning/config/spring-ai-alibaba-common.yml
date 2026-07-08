@@ -1,0 +1,71 @@
+# =============================================================================
+#  ★★★ 全局统一配置文件（整个项目只需要改这一个地方）★★★
+# =============================================================================
+#  说明：
+#  - 24 个模块的 application.yml 都会通过 spring.config.import 导入本文件。
+#  - 你只需要在这里填好 API Key，所有模块都能用，不用到处复制配置。
+#
+#  本项目模型策略（全程使用阿里云百炼 DashScope，一个 Key 打通所有能力）：
+#  - Spring AI Alibaba 原生对接 DashScope（百炼平台），
+#    对话/向量/多模态/文生图/语音 全部由 DashScope 一家提供，只需一个 Key。
+#  - 这正是它相对“OpenAI 兼容拼接”方案的优势：国内直连、能力齐全、配置简单。
+#
+#  ★ 如何填 Key（二选一）：
+#    方式A（推荐）：设置环境变量，然后什么都不用改这个文件：
+#        export AI_DASHSCOPE_API_KEY=sk-你的百炼密钥
+#    方式B：直接把下面 ${AI_DASHSCOPE_API_KEY:...} 里冒号后面的默认值替换成你的真实 Key。
+#
+#  ★ 百炼(DashScope) 申请地址：https://bailian.console.aliyun.com/  （注册送额度）
+#    进入“API-KEY 管理”创建一个 sk- 开头的 Key 即可。
+# =============================================================================
+
+spring:
+  ai:
+    dashscope:
+      # ---- 全局 API Key：对话/向量/文生图/语音/多模态 等所有能力共用这一个 ----
+      api-key: ${AI_DASHSCOPE_API_KEY:请在这里填入你的-百炼DashScope-Key或设置环境变量}
+
+      # ---- chat（对话）能力 ----
+      chat:
+        options:
+          # 使用的对话模型。DashScope(通义千问) 常用可选：
+          #   qwen-turbo  → 最快最便宜，适合入门/高并发
+          #   qwen-plus   → 速度与能力均衡（推荐默认）
+          #   qwen-max    → 能力最强，适合复杂推理
+          #   qwen-vl-max → 多模态视觉模型（看图说话，见模块05）
+          model: qwen-plus
+          # temperature 采样温度（0~2）：越低回答越稳定/确定，越高越有创造性/随机。
+          temperature: 0.7
+
+      # ---- embedding（文本向量化）能力 ----
+      embedding:
+        options:
+          # 通义文本向量模型。text-embedding-v3 输出 1024 维向量。
+          model: text-embedding-v3
+
+      # ---- image（文生图）能力 ----
+      image:
+        options:
+          # 通义万相文生图模型。wanx2.1-t2i-turbo 速度快；wanx-v1 为经典版。
+          model: wanx2.1-t2i-turbo
+
+      # ---- audio 语音合成(TTS 文字转语音) 能力 ----
+      audio:
+        synthesis:
+          options:
+            # 通义语音合成模型 + 音色。longxiaochun 是常用中文女声音色。
+            model: cosyvoice-v1
+            voice: longxiaochun
+        # ---- audio 语音识别(ASR 语音转文字) 能力 ----
+        transcription:
+          options:
+            # paraformer 是通义的语音识别模型，支持中英文自动识别。
+            model: paraformer-realtime-v2
+
+# 日志配置：让控制台少打印一些 INFO 噪音，聚焦在我们自己的演示输出上
+logging:
+  level:
+    root: WARN
+    com.example.springaialibaba: INFO   # 我们自己代码的日志保留 INFO
+    com.alibaba.cloud.ai: INFO          # Spring AI Alibaba 的日志保留 INFO，方便观察
+    org.springframework.ai: INFO        # Spring AI 的日志保留 INFO

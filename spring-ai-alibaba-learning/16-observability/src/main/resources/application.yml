@@ -1,0 +1,46 @@
+# 本模块自己的配置文件。
+# 关键点：通过 spring.config.import 导入“项目唯一的共享配置文件”，
+# 这样 API Key、模型等只需在 config/spring-ai-alibaba-common.yml 配一次，本模块即可生效。
+spring:
+  # 声明为非 Web 应用：本模块是命令行演示(CommandLineRunner 跑完即退出)。
+  main:
+    web-application-type: none
+  application:
+    name: 16-observability
+  config:
+    # 导入共享配置。optional 表示文件找不到也不报错（容错）。
+    import:
+      - "optional:file:../config/spring-ai-alibaba-common.yml"   # 在模块目录内运行时（推荐）
+      - "optional:file:./config/spring-ai-alibaba-common.yml"    # 在子项目根目录运行时
+      - "optional:file:spring-ai-alibaba-learning/config/spring-ai-alibaba-common.yml"   # 在仓库(ai-learning)根目录运行时
+
+# ===========================================================================
+# ★ 可观测性相关配置 ★
+# ---------------------------------------------------------------------------
+# 1) 日志：把 SimpleLoggerAdvisor 的级别调到 DEBUG，才能看到它打印的“请求/响应”全文。
+logging:
+  level:
+    root: WARN
+    com.example.springaialibaba: INFO
+    # ↓ 这行是重点：让内置日志顾问输出完整请求/响应
+    org.springframework.ai.chat.client.advisor: DEBUG
+
+# 2) 指标：Actuator 端点（本模块是命令行应用，默认不起 Web；如需在浏览器看指标，
+#    可去掉上面的 web-application-type: none，然后访问 /actuator/metrics）。
+#    下面这段演示如何放开端点——默认保留，纯属演示配置，命令行模式下不影响运行。
+management:
+  endpoints:
+    web:
+      exposure:
+        # 放开 health / metrics 端点（* 表示全部放开，生产环境请按需收紧）
+        include: health,metrics
+  # 让 AI 调用产生的 observation 也能作为百分位耗时指标统计
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[gen_ai.client.operation]": true
+# ---------------------------------------------------------------------------
+# 3) 接入线上平台（默认不开，避免引入需要 endpoint 的自动配置）：
+#    - 阿里云 ARMS：pom 加 spring-ai-alibaba-starter-arms-observation，并按 ARMS 文档配 licenseKey/endpoint。
+#    - Langfuse：pom 加 OpenTelemetry OTLP 桥接依赖，配置 OTEL_EXPORTER_OTLP_ENDPOINT 指向 Langfuse。
+# ===========================================================================

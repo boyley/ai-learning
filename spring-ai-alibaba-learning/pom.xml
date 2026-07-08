@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================================================= -->
+    <!-- 这是【父工程 / 聚合工程】的 POM。                                              -->
+    <!-- 作用：                                                                         -->
+    <!--   1. 作为所有子模块的“父亲”，统一管理 Java 版本、依赖版本（一处定义，处处生效）-->
+    <!--   2. 作为“聚合工程”，用 <modules> 把 24 个学习模块聚合在一起，               -->
+    <!--      在根目录执行 mvn 命令时会一次性处理所有模块。                            -->
+    <!--   3. packaging 必须是 pom（它本身不产出 jar，只负责管理和聚合）。            -->
+    <!--                                                                               -->
+    <!-- ★ Spring AI Alibaba 是什么？                                                  -->
+    <!--   它是阿里巴巴开源、构建在 Spring AI 之上的“智能体(Agent)开发框架”。          -->
+    <!--   - 底层完全兼容 Spring AI 的 ChatClient / ChatModel / Advisor / Tool 等 API；-->
+    <!--   - 额外提供：DashScope(百炼/通义千问) 原生接入、Graph 多智能体编排、          -->
+    <!--     Nacos 动态 Prompt、NL2SQL、社区工具集(百度搜索/高德地图等) 等阿里特色能力。-->
+    <!-- ============================================================================= -->
+
+    <!-- 继承 Spring Boot 官方父工程：它已经帮我们管理好了 Spring、日志、测试等几百个依赖的版本，
+         我们只需要写依赖的 groupId/artifactId，不用写 <version>，避免版本冲突。 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.4</version>
+        <relativePath/> <!-- 留空表示从 Maven 仓库下载父工程，而不是从本地路径找 -->
+    </parent>
+
+    <!-- 本项目自己的坐标（GAV：GroupId + ArtifactId + Version 唯一标识一个 Maven 项目） -->
+    <groupId>com.example.springaialibaba</groupId>
+    <artifactId>spring-ai-alibaba-learning</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging> <!-- pom 类型 = 这是个父/聚合工程，不打成可运行 jar -->
+
+    <name>Spring AI Alibaba 零基础学习项目</name>
+    <description>按知识点循序渐进的 Spring AI Alibaba 学习项目，每个知识点是一个独立可运行的模块</description>
+
+    <!-- 全局属性：在这里集中定义版本号等，下面用 ${...} 引用，改一处即可全局生效 -->
+    <properties>
+        <!-- 源码与编译目标的 Java 版本。Spring Boot 3.5 / Spring AI 1.1 要求 Java 17+ -->
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- ★ Spring AI Alibaba 的版本。1.1.2.3 是当前 1.1.x 线的最新稳定 GA 版本，
+             它对齐 Spring AI 1.1 / Spring Boot 3.5，与隔壁 spring-ai-learning 保持同一代。
+             版本号规则：前三位(1.1.2)跟随 Spring AI，最后一位(.3)是阿里自己的迭代号。 -->
+        <spring-ai-alibaba.version>1.1.2.3</spring-ai-alibaba.version>
+        <!-- Spring AI 官方版本：DashScope 底层用到的 ChatClient/VectorStore/RAG/Evaluation/MCP
+             等抽象都来自 org.springframework.ai:*，由 spring-ai-bom 统一管理版本。
+             与隔壁 spring-ai-learning 保持一致(1.1.7)。 -->
+        <spring-ai.version>1.1.7</spring-ai.version>
+    </properties>
+
+    <!-- ============================================================================= -->
+    <!-- 聚合的子模块列表。                                                             -->
+    <!-- 这里的名字 = 子模块所在的【文件夹名】。带 01、02… 前缀是为了标明学习顺序。     -->
+    <!-- 学习路线：01~08 对话核心 → 09~14 向量/RAG/多模态 → 15~18 工程化 →            -->
+    <!--          19~22 Graph 多智能体(阿里旗舰能力) → 23~24 阿里特色扩展。            -->
+    <!-- ============================================================================= -->
+    <modules>
+        <module>01-quickstart</module>            <!-- 快速上手：DashScope + 第一个 ChatClient 调用 -->
+        <module>02-chat-model</module>            <!-- ChatModel/ChatClient：流式/非流式/DashScopeChatOptions -->
+        <module>03-prompt</module>                <!-- Prompt 提示词：模板、System/User 角色 -->
+        <module>04-structured-output</module>     <!-- 结构化输出：把回答转成 Java 对象/List/Map -->
+        <module>05-multimodality</module>         <!-- 多模态：图片 + 文字一起输入（qwen-vl） -->
+        <module>06-chat-memory</module>           <!-- 对话记忆：让 AI 记住上下文 -->
+        <module>07-advisors</module>              <!-- Advisor 顾问/拦截器机制 -->
+        <module>08-tool-calling</module>          <!-- 工具调用 / 函数调用（@Tool） -->
+        <module>09-embedding</module>             <!-- 文本向量化 Embedding（text-embedding-v3） -->
+        <module>10-vector-store</module>          <!-- 向量数据库（内存版 SimpleVectorStore） -->
+        <module>11-rag</module>                   <!-- 检索增强生成 RAG -->
+        <module>12-document-etl</module>          <!-- 文档 ETL 管道：读取 → 切分 → 写入向量库 -->
+        <module>13-image-model</module>           <!-- 文生图（通义万相 wanx） -->
+        <module>14-audio-model</module>           <!-- 语音：转写(paraformer) + 合成(TTS) -->
+        <module>15-mcp</module>                   <!-- 模型上下文协议 MCP 客户端 -->
+        <module>16-observability</module>         <!-- 可观测性（ARMS / 日志 / 指标） -->
+        <module>17-evaluation</module>            <!-- 模型评估（相关性/事实性） -->
+        <module>18-prompt-engineering</module>    <!-- 提示工程模式（角色/少样本/思维链等） -->
+        <module>19-graph-basic</module>           <!-- Graph 基础：StateGraph 工作流编排（阿里核心） -->
+        <module>20-graph-parallel</module>        <!-- Graph 并行节点：多分支并发执行 -->
+        <module>21-graph-human-in-the-loop</module><!-- Graph 人类介入：中断 → 等人审批 → 恢复 -->
+        <module>22-agent-react</module>           <!-- 智能体 ReactAgent：推理-行动循环 -->
+        <module>23-tool-calling-community</module><!-- 社区工具集：一行接入百度搜索等现成工具 -->
+        <module>24-nacos-prompt</module>          <!-- Nacos 动态 Prompt：不重启改提示词（阿里特色） -->
+    </modules>
+
+    <!-- ============================================================================= -->
+    <!-- 依赖版本管理（只管理版本，不真正引入依赖）。                                   -->
+    <!-- 导入 Spring AI Alibaba 的 BOM（Bill Of Materials 材料清单），它声明了所有      -->
+    <!-- spring-ai-alibaba-* 以及其依赖的 spring-ai-* 的统一版本。                      -->
+    <!-- 子模块引用这些依赖时就不用再写 <version> 了。                                  -->
+    <!-- ============================================================================= -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- 1) Spring AI 官方 BOM：管理所有 org.springframework.ai:* 的版本
+                 （ChatClient、VectorStore、RAG Advisor、Evaluation、MCP 客户端等）。
+                 Spring AI Alibaba 的 1.1.x slim BOM 不含这些，所以必须自己导入。 -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 2) Spring AI Alibaba BOM：管理 graph-core 等阿里智能体相关坐标。 -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-bom</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope> <!-- scope=import 是导入 BOM 的固定写法 -->
+            </dependency>
+            <!-- 3) 显式登记 slim BOM 未收录的阿里 starter 坐标（都用同一版本号），
+                 这样各子模块引用它们时依旧【不用写 version】，保持整洁一致。
+                 从 1.1.2.x 起，模型/工具类 starter 迁到了扩展仓库，未被核心 BOM 收录，故在此补齐。 -->
+            <!-- DashScope 全能力 starter（对话/向量/多模态/文生图/语音） -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            <!-- 社区工具集：百度搜索（模块 23 用） -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-starter-tool-calling-baidusearch</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            <!-- Nacos 动态 Prompt（模块 24 用） -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-starter-nacos-prompt</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            <!-- ARMS 可观测性（模块 16 可选用） -->
+            <dependency>
+                <groupId>com.alibaba.cloud.ai</groupId>
+                <artifactId>spring-ai-alibaba-starter-arms-observation</artifactId>
+                <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 所有子模块都会用到的公共依赖，放在这里，子模块自动继承，不必各自声明 -->
+    <dependencies>
+        <!-- Lombok：用注解自动生成 getter/setter/构造器等，减少样板代码（可选，方便初学者） -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 测试起步依赖：JUnit5 等。Spring Boot 项目标配 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- pluginManagement：统一管理插件版本，子模块用到时无需再写版本 -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <!-- 打包时排除 lombok（它只在编译期需要） -->
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

@@ -1,0 +1,18 @@
+# 本模块自己的配置文件。
+# 关键点：通过 spring.config.import 导入“项目唯一的共享配置文件”，
+# 语音合成(TTS)模型 cosyvoice-v1 + 音色 longxiaochun、语音识别(ASR)模型 paraformer
+# 都已在共享文件的 spring.ai.dashscope.audio 下配好，本模块无需额外配置。
+#
+# 关于输出文件：TTS 合成出的音频会写到【本模块目录下的 generated-output/hello.mp3】。
+# 该目录已被项目根 .gitignore（**/generated-output/）忽略，不会污染仓库。
+spring:
+  # 声明为非 Web 应用：本模块是命令行演示(CommandLineRunner 跑完即退出)。
+  main:
+    web-application-type: none
+  application:
+    name: 14-audio-model
+  config:
+    import:
+      - "optional:file:../config/spring-ai-alibaba-common.yml"   # 在模块目录内运行时（推荐）
+      - "optional:file:./config/spring-ai-alibaba-common.yml"    # 在子项目根目录运行时
+      - "optional:file:spring-ai-alibaba-learning/config/spring-ai-alibaba-common.yml"   # 在仓库(ai-learning)根目录运行时

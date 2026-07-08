@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、Spring AI Alibaba BOM 等所有版本管理 -->
+    <parent>
+        <groupId>com.example.springaialibaba</groupId>
+        <artifactId>spring-ai-alibaba-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 本模块的标识 -->
+    <artifactId>15-mcp</artifactId>
+    <name>15-模型上下文协议 MCP</name>
+    <description>MCP 客户端：让 AI 通过标准协议(Model Context Protocol)使用外部工具服务</description>
+
+    <dependencies>
+        <!-- ★ Spring AI Alibaba 的 DashScope Starter ★
+             自动配置 DashScopeChatModel（底层模型）和 ChatClient.Builder（高级客户端），
+             并读取 spring.ai.dashscope.* 配置。版本由父工程 BOM 统一管理，无需写 <version>。 -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+        </dependency>
+
+        <!-- ★ Spring AI 官方的 MCP 客户端 Starter ★
+             MCP = Model Context Protocol（模型上下文协议），由 Anthropic 提出的开放标准。
+             它规定了“AI 应用(客户端)”与“工具/数据服务(MCP Server)”之间的统一通信协议。
+             引入它后：
+               1. Spring Boot 会自动读取 spring.ai.mcp.client.* 配置去连接你声明的 MCP Server；
+               2. 自动把这些 Server 暴露的“工具(tools)”封装成 Spring AI 的 ToolCallback，
+                  从而可以像本地 @Tool 一样交给 ChatClient 调用。
+             版本由 BOM 统一管理，无需写 <version>。 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-client</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot 打包/运行插件：让 mvn spring-boot:run 可用 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

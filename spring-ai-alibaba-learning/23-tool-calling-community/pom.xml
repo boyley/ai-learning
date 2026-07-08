@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程：自动获得 Java17、Spring Boot、Spring AI Alibaba BOM 等所有版本管理 -->
+    <parent>
+        <groupId>com.example.springaialibaba</groupId>
+        <artifactId>spring-ai-alibaba-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- 本模块的标识 -->
+    <artifactId>23-tool-calling-community</artifactId>
+    <name>23-社区工具集</name>
+    <description>Spring AI Alibaba 社区工具集：一行依赖接入现成的“百度搜索”工具</description>
+
+    <dependencies>
+        <!-- ★ DashScope Starter：提供 ChatClient -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+        </dependency>
+
+        <!-- ★ 社区工具集之一：百度搜索。
+             引入这一个 starter，它就会自动注册好“百度搜索”工具的 Bean（ToolCallback），
+             我们只要把它交给 ChatClient，模型即可在需要时实时联网搜索。
+             这就是“社区工具集”的魅力：一行依赖 = 一个现成能力。
+             （同系列还有高德地图、百度翻译等一堆 spring-ai-alibaba-starter-tool-calling-*。） -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-tool-calling-baidusearch</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,48 @@
+# 本模块自己的配置文件。
+# 关键点：通过 spring.config.import 导入“项目唯一的共享配置文件”，
+# 这样 API Key、模型等只需在 config/spring-ai-alibaba-common.yml 配一次，本模块即可生效。
+spring:
+  # 声明为非 Web 应用：本模块是命令行演示(CommandLineRunner 跑完即退出)。
+  main:
+    web-application-type: none
+  application:
+    name: 15-mcp
+  config:
+    # 导入共享配置。optional 表示文件找不到也不报错（容错）。
+    import:
+      - "optional:file:../config/spring-ai-alibaba-common.yml"   # 在模块目录内运行时（推荐）
+      - "optional:file:./config/spring-ai-alibaba-common.yml"    # 在子项目根目录运行时
+      - "optional:file:spring-ai-alibaba-learning/config/spring-ai-alibaba-common.yml"   # 在仓库(ai-learning)根目录运行时
+
+  # ===========================================================================
+  # ★ 如何真正接入一个 MCP Server（默认全部注释掉，保证零配置也能编译运行）★
+  # ---------------------------------------------------------------------------
+  # 下面以【官方 filesystem server】为例，它能让 AI 读写你指定目录下的文件。
+  # 前提：本机安装了 Node.js（能运行 npx 命令）。
+  # 使用步骤：把下面从 `ai:` 开始的整段解开注释，并把 <你的目录> 改成一个真实目录。
+  # ---------------------------------------------------------------------------
+  # ai:
+  #   mcp:
+  #     client:
+  #       # 客户端名称/版本（握手时上报给 Server，随意填）
+  #       name: spring-ai-alibaba-mcp-demo
+  #       version: 1.0.0
+  #       # 同步客户端（本模块用同步方式；异步用 async）
+  #       type: SYNC
+  #       # ---- stdio 方式：把 MCP Server 当作本地子进程拉起 ----
+  #       stdio:
+  #         # 可给多个 Server，这里叫 filesystem
+  #         connections:
+  #           filesystem:
+  #             command: npx                       # 用 npx 启动
+  #             args:
+  #               - "-y"
+  #               - "@modelcontextprotocol/server-filesystem"
+  #               - "<你的目录>"                    # 例如 /Users/you/mcp-sandbox（AI 只能访问这里）
+  # ===========================================================================
+
+# 日志：把 MCP 相关日志打开，方便观察握手 / 工具发现过程
+logging:
+  level:
+    io.modelcontextprotocol: INFO
+    org.springframework.ai.mcp: INFO

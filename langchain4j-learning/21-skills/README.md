@@ -31,7 +31,10 @@ flowchart TD
 ```java
 // 1) 定义技能：description 平时常驻；content 只有被激活后才注入(渐进式披露)
 Skill skill = Skill.builder()
-        .name("weekly-report-writer")
+        // ★技能名必须用英文 snake_case，不能用中文：模型激活时要一字不差回传这个名。
+        //   大模型对标识符有强烈的英文蛇形命名惯性，中文名会被它意译成英文导致激活失败。
+        //   语义交给下面的中文 description。
+        .name("weekly_report_creator")
         .description("把零散的工作记录整理成符合公司规范的标准周报")
         .content("""
                 # 周报写作规范

@@ -62,9 +62,12 @@ public class SkillsRunner implements CommandLineRunner {
         //    - name：技能标识；description：让模型判断「何时该用」；content：完整的操作规范(按需注入)。
         Skill weeklyReportSkill = Skill.builder()
                 // 技能名：模型激活技能时要原样回传这个名字。
-                // ★用中文名「周报生成」而非英文，避免模型把中文描述“脑补”成一个对不上的名字导致激活失败。
-                .name("周报生成")                                  // 技能名(激活时的标识，需与模型回传一致)
-                .description("把零散的工作记录整理成符合公司规范的标准周报")  // 简短描述(平时常驻上下文)
+                // ★必须用英文 snake_case 作技能名，不能用中文：
+                //   大模型对「工具/技能标识符」有极强的英文蛇形命名惯性——它不愿把中文当参数回传，
+                //   会擅自把中文「意译」成英文（如把「周报生成」脑补成 weekly_report_creator），导致激活失败。
+                //   正确分工：标识符用稳定英文名（模型能一字不差回传），语义交给下面的中文 description。
+                .name("weekly_report_creator")                     // 技能名(激活标识，英文 snake_case)
+                .description("把零散的工作记录整理成符合公司规范的标准周报")  // 简短描述(中文，平时常驻上下文，模型据此判断何时激活)
                 .content("""
                         # 周报写作规范
                         当需要撰写周报时，严格按以下规范输出（这段内容只有技能被激活后才进入上下文）：

@@ -1,14 +1,17 @@
 # Java AI 学习合集 🚀
 
-> 一个仓库，三个**面向零基础**的 Java AI 框架学习项目。同一批知识点，用三种主流框架分别实现，方便对照学习。
+> 三个**面向零基础**的 Java AI 框架学习项目（同一批知识点、三种框架对照实现）+ 一个**框架无关的原理系统库**。
 
-| 子项目 | 框架 | 模块数 | 说明 |
+| 子项目 | 框架/定位 | 模块数 | 说明 |
 |---|---|:---:|---|
 | [`spring-ai-learning`](spring-ai-learning) | **Spring AI** 1.1.7 | 20 | Spring 官方 AI 框架，Spring 风格的自动配置 + ChatClient |
 | [`langchain4j-learning`](langchain4j-learning) | **LangChain4j** 1.17.0 | 23 | 对标 Python LangChain 的 Java 库，原生 API |
 | [`spring-ai-alibaba-learning`](spring-ai-alibaba-learning) | **Spring AI Alibaba** 1.1.2.3 | 24 | 阿里开源智能体框架：DashScope(通义千问) + Graph 多智能体编排 |
+| [`llm-app-learning`](llm-app-learning) | **原理系统学习**（框架无关） | 30 | 🧠 RAG/Agent/Embedding/评估/安全/工程化的**原理与方法论**，讲 how/why 不绑框架 |
 
-三个项目都基于 **Spring Boot 3.5.4 + Java 17**，每个知识点一个独立可运行的 Maven 模块，全程详细中文注释 + 流程图 + 模块独立 README。
+前三个项目基于 **Spring Boot 3.5.4 + Java 17**，每个知识点一个独立可运行的 Maven 模块；`llm-app-learning` 是纯原理 Markdown 深度笔记（六阶段 30 篇）。
+
+> **三层配套学法**：先在 [`llm-app-learning`](llm-app-learning) 学**原理**（为什么这么设计）→ 到框架子项目学**代码怎么写** → 用 [`../interview/05-ai`](../interview/05-ai) **面试速答**巩固。
 
 ---
 

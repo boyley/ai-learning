@@ -18,56 +18,56 @@
 ### 一阶段 · 大模型基础原理
 | # | 知识点 | 一句话 | 重要度 | 状态 |
 |---|---|---|:--:|:--:|
-| 01 | [大模型概览与范式](01-llm-overview.md) | 什么是 LLM、生成式、预训练+微调+对齐范式、能力边界 | ⭐⭐⭐ | ⬜ |
-| 02 | [Transformer 与注意力](02-transformer-attention.md) | 概念级：自注意力为什么强、并行、上下文建模（应用者视角） | ⭐⭐ | ⬜ |
-| 03 | [Token 与分词](03-token-tokenization.md) | tokenization/BPE、上下文窗口、为什么按 Token 计费 | ⭐⭐⭐ | ⬜ |
-| 04 | [采样与解码参数](04-sampling-decoding.md) | 自回归生成、temperature/top-p/top-k、贪心 vs 采样 | ⭐⭐⭐ | ⬜ |
-| 05 | [幻觉及其成因](05-hallucination.md) | 为什么会幻觉、类型、治理总览（RAG/降温/溯源/评估） | ⭐⭐⭐ | ⬜ |
-| 06 | [上下文工程](06-context-engineering.md) | 上下文窗口、Lost in the Middle、上下文管理与压缩 | ⭐⭐⭐ | ⬜ |
+| 01 | [大模型概览与范式](01-llm-overview.md) | 什么是 LLM、生成式、预训练+微调+对齐范式、能力边界 | ⭐⭐⭐ | ✅ |
+| 02 | [Transformer 与注意力](02-transformer-attention.md) | 概念级：自注意力为什么强、并行、上下文建模（应用者视角） | ⭐⭐ | ✅ |
+| 03 | [Token 与分词](03-token-tokenization.md) | tokenization/BPE、上下文窗口、为什么按 Token 计费 | ⭐⭐⭐ | ✅ |
+| 04 | [采样与解码参数](04-sampling-decoding.md) | 自回归生成、temperature/top-p/top-k、贪心 vs 采样 | ⭐⭐⭐ | ✅ |
+| 05 | [幻觉及其成因](05-hallucination.md) | 为什么会幻觉、类型、治理总览（RAG/降温/溯源/评估） | ⭐⭐⭐ | ✅ |
+| 06 | [上下文工程](06-context-engineering.md) | 上下文窗口、Lost in the Middle、上下文管理与压缩 | ⭐⭐⭐ | ✅ |
 
 ### 二阶段 · Prompt 工程
 | # | 知识点 | 一句话 | 重要度 | 状态 |
 |---|---|---|:--:|:--:|
-| 07 | [Prompt 工程基础](07-prompt-basics.md) | 角色/指令/结构/少样本、Prompt 设计原则 | ⭐⭐⭐ | ⬜ |
-| 08 | [思维链与推理增强](08-cot-reasoning.md) | CoT/Zero-shot CoT/Self-Consistency/ToT，推理型模型 | ⭐⭐⭐ | ⬜ |
-| 09 | [结构化输出与约束](09-structured-output.md) | JSON mode/schema 约束/解析校验/函数调用式约束 | ⭐⭐ | ⬜ |
-| 10 | [Prompt 安全](10-prompt-security.md) | 注入/越狱原理与防护、指令与数据隔离 | ⭐⭐⭐ | ⬜ |
+| 07 | [Prompt 工程基础](07-prompt-basics.md) | 角色/指令/结构/少样本、Prompt 设计原则 | ⭐⭐⭐ | ✅ |
+| 08 | [思维链与推理增强](08-cot-reasoning.md) | CoT/Zero-shot CoT/Self-Consistency/ToT，推理型模型 | ⭐⭐⭐ | ✅ |
+| 09 | [结构化输出与约束](09-structured-output.md) | JSON mode/schema 约束/解析校验/函数调用式约束 | ⭐⭐ | ✅ |
+| 10 | [Prompt 安全](10-prompt-security.md) | 注入/越狱原理与防护、指令与数据隔离 | ⭐⭐⭐ | ✅ |
 
 ### 三阶段 · Embedding 与向量检索
 | # | 知识点 | 一句话 | 重要度 | 状态 |
 |---|---|---|:--:|:--:|
-| 11 | [Embedding 原理](11-embedding.md) | 语义向量、训练直觉、维度、模型选择 | ⭐⭐⭐ | ⬜ |
-| 12 | [相似度与向量检索](12-similarity-ann.md) | cosine/点积/L2、ANN、HNSW/IVF、精度 vs 速度 | ⭐⭐⭐ | ⬜ |
-| 13 | [向量数据库](13-vector-database.md) | 选型(pgvector/Milvus…)、索引、元数据过滤、混合检索 | ⭐⭐ | ⬜ |
+| 11 | [Embedding 原理](11-embedding.md) | 语义向量、训练直觉、维度、模型选择 | ⭐⭐⭐ | ✅ |
+| 12 | [相似度与向量检索](12-similarity-ann.md) | cosine/点积/L2、ANN、HNSW/IVF、精度 vs 速度 | ⭐⭐⭐ | ✅ |
+| 13 | [向量数据库](13-vector-database.md) | 选型(pgvector/Milvus…)、索引、元数据过滤、混合检索 | ⭐⭐ | ✅ |
 
 ### 四阶段 · RAG 检索增强（★核心）
 | # | 知识点 | 一句话 | 重要度 | 状态 |
 |---|---|---|:--:|:--:|
-| 14 | [RAG 概览与动机](14-rag-overview.md) | 为什么 RAG、全流程、vs 微调 vs 长上下文 | ⭐⭐⭐ | ⬜ |
-| 15 | [文档处理与分块](15-chunking.md) | ETL、chunking 策略、overlap、结构化/语义切分 | ⭐⭐⭐ | ⬜ |
-| 16 | [检索与召回优化](16-retrieval-optimization.md) | 混合检索(向量+BM25)、query 改写、多路召回 | ⭐⭐⭐ | ⬜ |
-| 17 | [重排 Rerank](17-rerank.md) | cross-encoder、两阶段检索、粗召回+精排 | ⭐⭐⭐ | ⬜ |
-| 18 | [高级 RAG 架构](18-advanced-rag.md) | 父子分块、HyDE、GraphRAG、Agentic RAG、多模态 | ⭐⭐ | ⬜ |
-| 19 | [RAG 评估](19-rag-evaluation.md) | 检索指标、生成指标 faithfulness、RAGAS、定位问题 | ⭐⭐⭐ | ⬜ |
+| 14 | [RAG 概览与动机](14-rag-overview.md) | 为什么 RAG、全流程、vs 微调 vs 长上下文 | ⭐⭐⭐ | ✅ |
+| 15 | [文档处理与分块](15-chunking.md) | ETL、chunking 策略、overlap、结构化/语义切分 | ⭐⭐⭐ | ✅ |
+| 16 | [检索与召回优化](16-retrieval-optimization.md) | 混合检索(向量+BM25)、query 改写、多路召回 | ⭐⭐⭐ | ✅ |
+| 17 | [重排 Rerank](17-rerank.md) | cross-encoder、两阶段检索、粗召回+精排 | ⭐⭐⭐ | ✅ |
+| 18 | [高级 RAG 架构](18-advanced-rag.md) | 父子分块、HyDE、GraphRAG、Agentic RAG、多模态 | ⭐⭐ | ✅ |
+| 19 | [RAG 评估](19-rag-evaluation.md) | 检索指标、生成指标 faithfulness、RAGAS、定位问题 | ⭐⭐⭐ | ✅ |
 
 ### 五阶段 · 工具调用与 Agent
 | # | 知识点 | 一句话 | 重要度 | 状态 |
 |---|---|---|:--:|:--:|
-| 20 | [Function/Tool Calling](20-function-calling.md) | 模型输出调用意图、多轮、并行、原理 | ⭐⭐⭐ | ⬜ |
-| 21 | [MCP 模型上下文协议](21-mcp.md) | 标准化工具/数据源接入、client-server、类比 JDBC | ⭐⭐⭐ | ⬜ |
-| 22 | [Agent 原理与 ReAct](22-agent-react.md) | 自主规划+工具+循环、ReAct、为什么不稳 | ⭐⭐⭐ | ⬜ |
-| 23 | [Agent 编排模式](23-agent-patterns.md) | 链/路由/并行/编排者-执行者/评估-优化 | ⭐⭐⭐ | ⬜ |
-| 24 | [多智能体系统](24-multi-agent.md) | Multi-Agent 协作、角色分工、A2A、通信 | ⭐⭐ | ⬜ |
-| 25 | [Agent 记忆与规划](25-agent-memory-planning.md) | 短期/长期记忆、planning、reflection、工具选择 | ⭐⭐ | ⬜ |
+| 20 | [Function/Tool Calling](20-function-calling.md) | 模型输出调用意图、多轮、并行、原理 | ⭐⭐⭐ | ✅ |
+| 21 | [MCP 模型上下文协议](21-mcp.md) | 标准化工具/数据源接入、client-server、类比 JDBC | ⭐⭐⭐ | ✅ |
+| 22 | [Agent 原理与 ReAct](22-agent-react.md) | 自主规划+工具+循环、ReAct、为什么不稳 | ⭐⭐⭐ | ✅ |
+| 23 | [Agent 编排模式](23-agent-patterns.md) | 链/路由/并行/编排者-执行者/评估-优化 | ⭐⭐⭐ | ✅ |
+| 24 | [多智能体系统](24-multi-agent.md) | Multi-Agent 协作、角色分工、A2A、通信 | ⭐⭐ | ✅ |
+| 25 | [Agent 记忆与规划](25-agent-memory-planning.md) | 短期/长期记忆、planning、reflection、工具选择 | ⭐⭐ | ✅ |
 
 ### 六阶段 · 评估·安全·工程化
 | # | 知识点 | 一句话 | 重要度 | 状态 |
 |---|---|---|:--:|:--:|
-| 26 | [大模型应用评估](26-llm-evaluation.md) | LLM-as-judge、离线/在线评估、金标准集、指标 | ⭐⭐⭐ | ⬜ |
-| 27 | [安全与护栏](27-safety-guardrails.md) | Guardrails、内容审核、PII、对齐、越权防护 | ⭐⭐ | ⬜ |
-| 28 | [微调与模型定制](28-fine-tuning.md) | SFT/LoRA/PEFT、何时微调、vs RAG vs Prompt | ⭐⭐⭐ | ⬜ |
-| 29 | [推理优化与部署](29-inference-optimization.md) | 成本/延迟、量化、KV cache、缓存、批处理（概念级） | ⭐⭐ | ⬜ |
-| 30 | [LLM 应用架构与落地](30-app-architecture.md) | 整体架构、可观测、成本控制、生产化五大挑战 | ⭐⭐⭐ | ⬜ |
+| 26 | [大模型应用评估](26-llm-evaluation.md) | LLM-as-judge、离线/在线评估、金标准集、指标 | ⭐⭐⭐ | ✅ |
+| 27 | [安全与护栏](27-safety-guardrails.md) | Guardrails、内容审核、PII、对齐、越权防护 | ⭐⭐ | ✅ |
+| 28 | [微调与模型定制](28-fine-tuning.md) | SFT/LoRA/PEFT、何时微调、vs RAG vs Prompt | ⭐⭐⭐ | ✅ |
+| 29 | [推理优化与部署](29-inference-optimization.md) | 成本/延迟、量化、KV cache、缓存、批处理（概念级） | ⭐⭐ | ✅ |
+| 30 | [LLM 应用架构与落地](30-app-architecture.md) | 整体架构、可观测、成本控制、生产化五大挑战 | ⭐⭐⭐ | ✅ |
 
 ---
 
@@ -114,6 +114,6 @@ graph TD
 
 ## 四、进度总表
 
-**共 30 篇** · 已完成 **1** · 待生成 **29**。
+**共 30 篇 · 全部完成 ✅**（六阶段全覆盖：基础/Prompt/向量检索/RAG/Agent/评估安全工程化）。
 
 > 规范见 [`_CONVENTIONS.md`](./_CONVENTIONS.md)。配套：框架代码见 [`../`](../)，面试速答见 [`../../interview/05-ai`](../../interview/05-ai)。

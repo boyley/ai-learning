@@ -1,0 +1,30 @@
+# 10b · Milvus 向量库配置
+# 关键点：引入 spring-ai-starter-vector-store-milvus 后，Spring Boot 会【自动配置】
+#   一个 MilvusVectorStore Bean（连接下面配的 Milvus 地址）。业务代码直接 @Autowired VectorStore 即可，
+#   代码和内存版 SimpleVectorStore 几乎一样——这正是"面向接口编程、底层向量库可换"的好处。
+#
+# ⚠️ 运行前必须先启动 Milvus！否则应用启动时创建 MilvusVectorStore Bean 会连接失败。
+#   一键起 Milvus：见 ../../../vector-db-learning/01-milvus/docker-compose.yml
+#   （cd 到该目录执行 `docker compose up -d`，等 milvus-standalone healthy）
+spring:
+  main:
+    web-application-type: none          # 命令行演示，非 Web
+  application:
+    name: 10b-vector-store-milvus
+  config:
+    import:
+      - "optional:file:../config/spring-ai-common.yml"          # 模块目录内运行
+      - "optional:file:./config/spring-ai-common.yml"           # 子项目根运行
+      - "optional:file:spring-ai-learning/config/spring-ai-common.yml"  # 仓库根运行
+  ai:
+    vectorstore:
+      milvus:
+        client:
+          host: ${MILVUS_HOST:localhost}   # Milvus 地址（docker-compose 默认 localhost:19530）
+          port: ${MILVUS_PORT:19530}       # ★ gRPC 端口
+        database-name: default
+        collection-name: spring_ai_milvus_demo
+        embedding-dimension: 1536          # ★ 必须与 embedding 模型输出维度一致（OpenAI text-embedding-3-small=1536）
+        index-type: HNSW                   # ANN 索引类型
+        metric-type: COSINE                # 相似度度量（与检索一致）
+        initialize-schema: true            # 首次自动建 collection 与索引

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.springai</groupId>
+        <artifactId>spring-ai-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>10b-vector-store-milvus</artifactId>
+    <name>10b-VectorStore Milvus 向量数据库</name>
+    <description>用生产级 Milvus 替代内存版 SimpleVectorStore：持久化存储文档向量并做语义检索</description>
+
+    <dependencies>
+        <!-- OpenAI starter：提供 EmbeddingModel（把文档转成向量），MilvusVectorStore 依赖它。 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
+        </dependency>
+
+        <!-- ★ Milvus 向量库 starter：提供 MilvusVectorStore 自动配置 + Milvus 客户端。
+             坐标经 spring-ai-bom 1.1.7 查证存在，版本由父工程 BOM 管理（不写 version）。 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-vector-store-milvus</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

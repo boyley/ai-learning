@@ -58,7 +58,8 @@
         <module>06-model-parameters</module>       <!-- 模型参数：temperature/maxTokens 等 -->
         <module>07-structured-outputs</module>     <!-- 结构化输出：把回答转成 Java 对象 -->
         <module>08-tools</module>                  <!-- 工具调用 / 函数调用 @Tool -->
-        <module>09-embeddings-and-stores</module>  <!-- 文本向量化 + 向量存储 -->
+        <module>09-embeddings-and-stores</module>  <!-- 文本向量化 + 向量存储（内存版） -->
+        <module>09b-milvus-store</module>          <!-- 向量存储（生产级 Milvus） -->
         <module>10-rag</module>                    <!-- 检索增强生成 RAG -->
         <module>11-classification</module>         <!-- 文本分类 -->
         <module>12-image-models</module>           <!-- 图像模型：文生图 / 图像理解 -->

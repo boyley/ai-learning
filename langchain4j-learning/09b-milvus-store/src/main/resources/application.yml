@@ -1,0 +1,17 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: 09b-milvus-store
+  config:
+    import:
+      - "optional:file:../config/langchain4j-common.yml"
+      - "optional:file:./config/langchain4j-common.yml"
+      - "optional:file:langchain4j-learning/config/langchain4j-common.yml"
+
+# Milvus 连接（也可在代码里写死；这里放 yml 便于改）
+# ⚠️ 运行前先启动 Milvus：cd ../../../vector-db-learning/01-milvus && docker compose up -d
+milvus:
+  host: ${MILVUS_HOST:localhost}
+  port: ${MILVUS_PORT:19530}
+  collection: lc4j_milvus_demo

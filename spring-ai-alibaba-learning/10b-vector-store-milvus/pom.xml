@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.springaialibaba</groupId>
+        <artifactId>spring-ai-alibaba-learning</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>10b-vector-store-milvus</artifactId>
+    <name>10b-VectorStore Milvus 向量数据库</name>
+    <description>Spring AI Alibaba：用 DashScope 向量 + 生产级 Milvus 存储检索</description>
+
+    <dependencies>
+        <!-- DashScope starter：提供 EmbeddingModel（通义 text-embedding-v3，输出 1024 维）。 -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+        </dependency>
+
+        <!-- ★ Milvus 向量库 starter（Spring AI 官方，Alibaba 复用 Spring AI 的 VectorStore 抽象）。
+             坐标经 spring-ai-bom 1.1.7 查证存在，版本由 BOM 管理。 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-vector-store-milvus</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

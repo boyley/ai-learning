@@ -55,6 +55,7 @@
         <module>08-tool-calling</module>          <!-- 工具调用 / 函数调用 -->
         <module>09-embedding</module>             <!-- 文本向量化 Embedding -->
         <module>10-vector-store</module>          <!-- 向量数据库（内存版 SimpleVectorStore） -->
+        <module>10b-vector-store-milvus</module>   <!-- 向量数据库（生产级 Milvus） -->
         <module>11-rag-etl</module>               <!-- 检索增强生成 RAG + 文档 ETL 管道 -->
         <module>12-image-model</module>           <!-- 文生图 -->
         <module>13-audio-model</module>           <!-- 语音转文字 + 文字转语音 -->

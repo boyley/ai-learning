@@ -69,6 +69,7 @@
         <module>08-tool-calling</module>          <!-- 工具调用 / 函数调用（@Tool） -->
         <module>09-embedding</module>             <!-- 文本向量化 Embedding（text-embedding-v3） -->
         <module>10-vector-store</module>          <!-- 向量数据库（内存版 SimpleVectorStore） -->
+        <module>10b-vector-store-milvus</module>   <!-- 向量数据库（生产级 Milvus + DashScope 向量） -->
         <module>11-rag</module>                   <!-- 检索增强生成 RAG -->
         <module>12-document-etl</module>          <!-- 文档 ETL 管道：读取 → 切分 → 写入向量库 -->
         <module>13-image-model</module>           <!-- 文生图（通义万相 wanx） -->

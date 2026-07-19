@@ -1,0 +1,27 @@
+# 10b · Spring AI Alibaba + Milvus 向量库
+# 引入 spring-ai-starter-vector-store-milvus 后自动配置 MilvusVectorStore；
+# embedding 走 DashScope（通义 text-embedding-v3，★1024 维，注意不是 OpenAI 的 1536）。
+#
+# ⚠️ 运行前先启动 Milvus：cd ../../../vector-db-learning/01-milvus && docker compose up -d
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: 10b-vector-store-milvus
+  config:
+    import:
+      - "optional:file:../config/spring-ai-alibaba-common.yml"
+      - "optional:file:./config/spring-ai-alibaba-common.yml"
+      - "optional:file:spring-ai-alibaba-learning/config/spring-ai-alibaba-common.yml"
+  ai:
+    vectorstore:
+      milvus:
+        client:
+          host: ${MILVUS_HOST:localhost}
+          port: ${MILVUS_PORT:19530}
+        database-name: default
+        collection-name: saa_milvus_demo
+        embedding-dimension: 1024        # ★ DashScope text-embedding-v3 = 1024 维（与 OpenAI 的 1536 不同！）
+        index-type: HNSW
+        metric-type: COSINE
+        initialize-schema: true

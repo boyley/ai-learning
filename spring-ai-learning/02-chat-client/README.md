@@ -31,10 +31,10 @@ prompt() → [system(...)] → user(...) → [options(...)] → call()/stream() 
 
 ```mermaid
 flowchart TD
-    subgraph 非流式 call
+    subgraph S1["非流式 call()"]
         A1[提问] --> A2[模型生成全部] --> A3[一次性返回整段]
     end
-    subgraph 流式 stream
+    subgraph S2["流式 stream()"]
         B1[提问] --> B2[模型边生成边返回]
         B2 --> B3["块1: 你"] --> B4["块2: 好"] --> B5["块3: ..."]
     end

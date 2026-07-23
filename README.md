@@ -104,6 +104,12 @@ cd langchain4j-learning/01-get-started      && mvn spring-boot:run
 
 ---
 
-## 五、建议
+## 五、专题文档
+
+- 📊 [`Spring-AI-vs-LangChain4j-知识模块对比.md`](Spring-AI-vs-LangChain4j-知识模块对比.md) —— 两框架逐知识点对比
+- 🔀 [`Spring-AI-vs-Spring-AI-Alibaba-区别与扩展.md`](Spring-AI-vs-Spring-AI-Alibaba-区别与扩展.md) —— Spring AI 与阿里版的区别
+- 🤖 [`AI-Coding-实战使用经验与最佳实践.md`](AI-Coding-实战使用经验与最佳实践.md) —— **用 AI 工具写代码**的实战手段：上下文工程 / 记录追溯 / Spec 驱动任务追踪 / 分工并行 / 质量把关
+
+## 六、建议
 
 零基础建议从任一项目的 `01` 开始，按编号顺序学。想对比两种框架的写法，可以同一知识点左右对照着看（如对话记忆：`spring-ai-learning/06` vs `langchain4j-learning/05`）。
